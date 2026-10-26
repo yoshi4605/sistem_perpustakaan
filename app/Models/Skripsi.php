@@ -13,6 +13,7 @@ class Skripsi extends Model
 
     protected $fillable = [
         'judul_skripsi',
+        'gambar',
         'nama_penulis',
         'npm',
         'program_studi',

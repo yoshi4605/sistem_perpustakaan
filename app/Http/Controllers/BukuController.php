@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Penerbit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -33,7 +34,8 @@ class BukuController extends Controller
 
     public function tambah_buku()
     {
-        return view('kelola-buku.tambah-buku');
+        $penerbits = Penerbit::orderBy('nama_penerbit')->get();
+        return view('kelola-buku.tambah-buku', compact('penerbits'));
     }
 
     public function store_buku(Request $request)
@@ -66,6 +68,17 @@ class BukuController extends Controller
             "kategori.in"          => "Kategori yang dipilih tidak valid.",
         ]);
 
+        // Simpan penerbit_id dan sinkronkan nama penerbit dari relasi
+        if ($request->penerbit_id) {
+            $validasiBuku['penerbit_id'] = $request->penerbit_id;
+            $penerbitObj = Penerbit::find($request->penerbit_id);
+            if ($penerbitObj) {
+                $validasiBuku['penerbit'] = $penerbitObj->nama_penerbit;
+            }
+        } else {
+            $validasiBuku['penerbit_id'] = null;
+        }
+
         // Gabungkan rak_baris + rak_tinggi → kolom rak
         if ($request->rak_baris && $request->rak_tinggi) {
             $validasiBuku['rak'] = $request->rak_baris . $request->rak_tinggi;
@@ -84,8 +97,10 @@ class BukuController extends Controller
 
     public function edit_buku(Buku $buku)
     {
+        $penerbits = Penerbit::orderBy('nama_penerbit')->get();
         return view('kelola-buku.edit-buku', [
-            "buku" => $buku
+            "buku"      => $buku,
+            "penerbits" => $penerbits,
         ]);
     }
 
@@ -118,6 +133,17 @@ class BukuController extends Controller
             "cover_buku.max"       => "Cover buku maskimal berukuran 2mb.",
             "kategori.in"          => "Kategori yang dipilih tidak valid.",
         ]);
+
+        // Simpan penerbit_id dan sinkronkan nama penerbit dari relasi
+        if ($request->penerbit_id) {
+            $validasiBuku['penerbit_id'] = $request->penerbit_id;
+            $penerbitObj = Penerbit::find($request->penerbit_id);
+            if ($penerbitObj) {
+                $validasiBuku['penerbit'] = $penerbitObj->nama_penerbit;
+            }
+        } else {
+            $validasiBuku['penerbit_id'] = null;
+        }
 
         // Gabungkan rak_baris + rak_tinggi → kolom rak
         if ($request->rak_baris && $request->rak_tinggi) {

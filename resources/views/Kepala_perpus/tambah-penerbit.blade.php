@@ -32,11 +32,17 @@
 
                     <div class="flex items-start justify-between gap-2">
                         <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 bg-[#35094d10] text-[#35094D] flex items-center justify-center rounded-xl flex-shrink-0">
-                                <img src="https://api.iconify.design/ri:building-4-fill.svg?color=%2335094D" class="w-6 h-6 object-contain" alt="Penerbit">
+                            <div class="w-12 h-12 bg-gradient-to-tr from-cyan-500/20 to-violet-500/20 border border-cyan-500/30 text-cyan-400 flex items-center justify-center rounded-xl flex-shrink-0 overflow-hidden p-1">
+                                @if($penerbit->logo)
+                                    <img src="{{ asset('storage/' . $penerbit->logo) }}" class="w-full h-full object-contain" alt="{{ $penerbit->nama_penerbit }}">
+                                @else
+                                    <img src="{{ asset('icons/svg/penerbit-aktif.svg') }}" class="w-6 h-6 object-contain" alt="Penerbit">
+                                @endif
                             </div>
-                            <div class="min-w-0">
-                                <h4 class="text-base font-bold text-[#35094D] truncate">{{ $penerbit->nama_penerbit }}</h4>
+                        <div class="min-w-0">
+                                <a href="/daftar-penerbit/{{ $penerbit->id }}/detail">
+                                    <h4 class="text-base font-bold text-[#35094D] truncate hover:underline">{{ $penerbit->nama_penerbit }}</h4>
+                                </a>
                                 <p class="text-xs text-gray-400 font-medium mt-0.5">{{ $penerbit->alamat ?? 'N/A' }}</p>
                                 <p class="text-xs text-gray-500 mt-2 truncate">{{ $penerbit->email ?? '-' }}</p>
                             </div>

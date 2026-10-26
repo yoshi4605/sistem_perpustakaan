@@ -1,0 +1,573 @@
+/* ═════════════════════════════════════════════════════════════════════════
+   ANTI-GRAVITY DARK MODE THEME FOR ADMIN (KEPALA PERPUSTAKAAN)
+   Midnight Slate / Glassmorphism / Cyan-Purple Glow
+   ═════════════════════════════════════════════════════════════════════════ */
+
+body.admin-dark {
+    background-color: #0a0e1a !important;
+    color: #f1f5f9 !important;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Ambient subtle background glows */
+body.admin-dark::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -10%;
+    width: 650px;
+    height: 650px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.045) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body.admin-dark::after {
+    content: '';
+    position: fixed;
+    bottom: -15%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.045) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   SIDEBAR DARK MODE
+   ═════════════════════════════════════════════════════════════════════════ */
+body.admin-dark #sidebar-nav {
+    background: #0b1120 !important;
+    border-right: 1px solid rgba(148, 163, 184, 0.12) !important;
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Gradient brand title (Point 5) */
+body.admin-dark #sidebar-nav .sidebar-brand-title {
+    background: linear-gradient(135deg, #38bdf8 0%, #c084fc 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em;
+}
+
+/* Section Title Headers (Point 1) */
+body.admin-dark #sidebar-nav .sidebar-section-title,
+body.admin-dark #sidebar-nav span.text-\[10px\].font-bold,
+body.admin-dark #sidebar-nav span.text-\[10px\].font-medium {
+    color: #64748b !important;
+    letter-spacing: 0.1em !important;
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+}
+
+/* Base Navigation Links */
+body.admin-dark #sidebar-nav ul li a {
+    color: #94a3b8 !important;
+    border-radius: 12px;
+    padding: 8px 12px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+body.admin-dark #sidebar-nav ul li a:hover {
+    color: #ffffff !important;
+    background: rgba(30, 41, 59, 0.6) !important;
+    border-color: rgba(148, 163, 184, 0.15) !important;
+}
+
+/* Active Navigation Item (Point 3 - Pill Glow & Left Indicator Bar) */
+body.admin-dark #sidebar-nav ul li a.active-menu,
+body.admin-dark #sidebar-nav ul li a.font-semibold {
+    color: #ffffff !important;
+    background: linear-gradient(90deg, rgba(6, 182, 212, 0.22) 0%, rgba(14, 165, 233, 0.08) 65%, transparent 100%) !important;
+    border: 1px solid rgba(6, 182, 212, 0.35) !important;
+    border-left: 3px solid #22d3ee !important;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.2), inset 0 0 10px rgba(6, 182, 212, 0.08) !important;
+    font-weight: 600 !important;
+}
+
+/* Live Counter Badges (Point 2) */
+body.admin-dark #sidebar-nav .badge-pending {
+    background-color: rgba(245, 158, 11, 0.2) !important;
+    color: #fbbf24 !important;
+    border: 1px solid rgba(245, 158, 11, 0.45) !important;
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.25) !important;
+}
+
+body.admin-dark #sidebar-nav .badge-visitor {
+    background-color: rgba(6, 182, 212, 0.2) !important;
+    color: #67e8f9 !important;
+    border: 1px solid rgba(6, 182, 212, 0.45) !important;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.25) !important;
+}
+
+/* Profile Card Avatar & Sidebar Icons */
+body.admin-dark #sidebar-nav img {
+    background: transparent !important;
+}
+
+/* Active Icon styling: glowing electric cyan */
+body.admin-dark #sidebar-nav a.active-menu img,
+body.admin-dark #sidebar-nav a.font-semibold img,
+body.admin-dark #sidebar-nav a.text-\[\#35094D\] img {
+    filter: invert(72%) sepia(82%) saturate(850%) hue-rotate(145deg) brightness(110%) contrast(105%) drop-shadow(0 0 6px rgba(34, 211, 238, 0.6)) !important;
+    opacity: 1 !important;
+}
+
+/* Inactive Icon styling: crisp silver/slate */
+body.admin-dark #sidebar-nav a:not(.active-menu):not(.font-semibold):not(.text-\[\#35094D\]) img {
+    filter: invert(88%) sepia(9%) saturate(400%) hue-rotate(175deg) brightness(110%) contrast(95%) !important;
+    opacity: 0.8 !important;
+    transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+body.admin-dark #sidebar-nav a:not(.active-menu):not(.font-semibold):not(.text-\[\#35094D\]):hover img {
+    opacity: 1 !important;
+    filter: invert(95%) sepia(20%) saturate(300%) hue-rotate(160deg) brightness(125%) contrast(100%) !important;
+}
+
+/* Custom Scrollbar for Sidebar */
+body.admin-dark #sidebar-nav .overflow-y-auto::-webkit-scrollbar {
+    width: 4px;
+}
+body.admin-dark #sidebar-nav .overflow-y-auto::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.2);
+    border-radius: 999px;
+}
+
+/* Minimalist Ghost Logout Button (Point 6) */
+body.admin-dark #sidebar-nav .admin-logout-btn,
+body.admin-dark #sidebar-nav button.btn_open_modal {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(148, 163, 184, 0.18) !important;
+    box-shadow: none !important;
+    color: #94a3b8 !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+body.admin-dark #sidebar-nav .admin-logout-btn:hover,
+body.admin-dark #sidebar-nav button.btn_open_modal:hover {
+    background: rgba(244, 63, 94, 0.15) !important;
+    border-color: rgba(244, 63, 94, 0.4) !important;
+    color: #fb7185 !important;
+    box-shadow: 0 0 20px rgba(244, 63, 94, 0.25) !important;
+    transform: translateY(-1px);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   TOP HEADER GREETING IN MAIN LAYOUT
+   ═════════════════════════════════════════════════════════════════════════ */
+body.admin-dark main > section:first-child h1.text-\[\#35094D\] {
+    color: #f1f5f9 !important;
+}
+body.admin-dark main > section:first-child h1.text-\[\#35094D\] span.font-semibold {
+    background: linear-gradient(135deg, #06b6d4, #a855f7) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+body.admin-dark main > section:first-child span.text-\[\#35094d90\] {
+    color: #64748b !important;
+}
+body.admin-dark main > section:first-child span.text-\[\#35094d90\] span.text-\[\#35094D\] {
+    color: #38bdf8 !important;
+    font-weight: 600;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   ALL ADMIN CONTENT PAGES (DARK GLASSMORPHISM OVERRIDES)
+   Tables, Cards, Forms, Inputs, Modals, Buttons
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* Surface Cards and Containers */
+body.admin-dark .bg-white {
+    background-color: rgba(15, 23, 42, 0.75) !important;
+    border: 1px solid rgba(148, 163, 184, 0.22) !important;
+    backdrop-filter: blur(16px) !important;
+    color: #f1f5f9 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4) !important;
+    border-radius: 20px !important;
+}
+
+/* Modals with .bg-white */
+body.admin-dark .open_modal .bg-white,
+body.admin-dark .open_modal_loading .bg-white,
+body.admin-dark #success-modal .bg-white {
+    padding: 32px !important;
+    border-radius: 24px !important;
+}
+
+/* Ensure any table container can scroll horizontally without squeezing text */
+body.admin-dark .overflow-x-auto,
+body.admin-dark div:has(> table) {
+    overflow-x: auto !important;
+    border-radius: 16px !important;
+}
+
+/* Table Architecture: Generous breathing room, crisp spacing */
+body.admin-dark table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    width: 100% !important;
+}
+
+/* Table Headings - High Contrast, Generous Padding, No Cramped Text */
+body.admin-dark table thead th,
+body.admin-dark thead tr th,
+body.admin-dark thead.bg-gray-50 th {
+    background-color: rgba(30, 41, 59, 0.92) !important;
+    color: #f1f5f9 !important; /* Cool White header text */
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 16px 22px !important; /* Generous vertical AND horizontal padding */
+    white-space: nowrap !important; /* Prevents cramped text merging */
+    border-bottom: 2px solid rgba(148, 163, 184, 0.28) !important;
+    border-top: none !important;
+}
+
+/* First and last column padding in header */
+body.admin-dark table thead th:first-child {
+    padding-left: 24px !important;
+    border-top-left-radius: 12px !important;
+}
+body.admin-dark table thead th:last-child {
+    padding-right: 24px !important;
+    border-top-right-radius: 12px !important;
+}
+
+/* Table Rows */
+body.admin-dark table tbody tr {
+    border-bottom: 1px solid rgba(148, 163, 184, 0.18) !important;
+    transition: background 0.2s ease;
+}
+body.admin-dark table tbody tr:hover {
+    background-color: rgba(30, 41, 59, 0.5) !important;
+}
+
+/* Table Cells - Generous Padding so text NEVER touches borders or neighboring columns */
+body.admin-dark table tbody td,
+body.admin-dark tbody tr td {
+    padding: 16px 22px !important; /* Generous vertical AND horizontal padding */
+    color: #f1f5f9 !important;
+    font-size: 14px !important;
+    vertical-align: middle !important;
+}
+
+body.admin-dark table tbody td:first-child {
+    padding-left: 24px !important;
+}
+body.admin-dark table tbody td:last-child {
+    padding-right: 24px !important;
+}
+
+/* Empty data row */
+body.admin-dark table tbody tr td[colspan] {
+    padding: 36px 24px !important;
+    text-align: center !important;
+    font-style: italic !important;
+    color: #94a3b8 !important;
+}
+
+body.admin-dark table tbody td a.text-\[\#35094D\] {
+    color: #38bdf8 !important;
+}
+body.admin-dark table tbody td a.text-\[\#35094D\]:hover {
+    color: #7dd3fc !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   TABLE ACTION BUTTONS & BADGES (HIGH CONTRAST & CRISP)
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* Tombol Edit di tabel (sebelumnya bg-[#F99D2282] kecoklatan redup) */
+body.admin-dark button.btn_open_modal_kembalikan,
+body.admin-dark .bg-\[\#F99D2282\] {
+    background-color: #d97706 !important; /* Amber 600 tajam */
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border: 1px solid rgba(251, 191, 36, 0.5) !important;
+    box-shadow: 0 2px 10px rgba(217, 119, 6, 0.3) !important;
+    transition: all 0.2s ease !important;
+}
+body.admin-dark button.btn_open_modal_kembalikan:hover,
+body.admin-dark .bg-\[\#F99D2282\]:hover {
+    background-color: #f59e0b !important;
+    transform: translateY(-1px);
+}
+
+/* Tombol Hapus di tabel (sebelumnya bg-[#FFC5C5] pink pudar redup) */
+body.admin-dark button.btn_open_delete_buku,
+body.admin-dark .bg-\[\#FFC5C5\] {
+    background-color: #e11d48 !important; /* Rose Red 600 jelas */
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    border: 1px solid rgba(251, 113, 133, 0.5) !important;
+    box-shadow: 0 2px 10px rgba(225, 29, 72, 0.3) !important;
+    transition: all 0.2s ease !important;
+}
+body.admin-dark button.btn_open_delete_buku:hover,
+body.admin-dark .bg-\[\#FFC5C5\]:hover {
+    background-color: #f43f5e !important;
+    transform: translateY(-1px);
+}
+
+/* Badge Stok Buku (Tinggi Kontras, Tidak Gelap/Nyaru) */
+body.admin-dark .bg-\[\#16C09861\] {
+    background-color: rgba(16, 185, 129, 0.2) !important;
+    color: #34d399 !important; /* Emerald terang */
+    border: 1px solid rgba(52, 211, 153, 0.4) !important;
+    font-weight: 700 !important;
+}
+
+body.admin-dark .bg-yellow-100 {
+    background-color: rgba(245, 158, 11, 0.2) !important;
+    color: #fbbf24 !important; /* Amber terang */
+    border: 1px solid rgba(251, 191, 36, 0.4) !important;
+    font-weight: 700 !important;
+}
+
+body.admin-dark .bg-red-200 {
+    background-color: rgba(244, 63, 94, 0.2) !important;
+    color: #fb7185 !important; /* Rose terang */
+    border: 1px solid rgba(251, 113, 133, 0.4) !important;
+    font-weight: 700 !important;
+}
+
+/* Headings in Pages */
+body.admin-dark h1.text-gray-800,
+body.admin-dark h2.text-\[\#35094D\],
+body.admin-dark h3.text-\[\#35094D\],
+body.admin-dark h3.text-gray-900,
+body.admin-dark h3.text-xl.font-bold {
+    color: #f1f5f9 !important;
+}
+
+body.admin-dark p.text-gray-500,
+body.admin-dark span.text-gray-500,
+body.admin-dark p.text-gray-600,
+body.admin-dark span.text-gray-400 {
+    color: #94a3b8 !important;
+}
+
+/* Forms & Inputs */
+body.admin-dark input[type="text"],
+body.admin-dark input[type="number"],
+body.admin-dark input[type="email"],
+body.admin-dark input[type="password"],
+body.admin-dark input[type="date"],
+body.admin-dark textarea,
+body.admin-dark select {
+    background-color: rgba(30, 41, 59, 0.75) !important;
+    border: 1px solid rgba(148, 163, 184, 0.28) !important;
+    color: #f1f5f9 !important;
+    border-radius: 12px !important;
+    padding: 12px 18px !important; /* Generous internal padding so text never touches border */
+    font-size: 14px !important;
+    color-scheme: dark !important; /* Makes native datepicker, scrollbar, popup dark */
+}
+
+/* Force Native Datepicker Calendar Icon to pure white */
+body.admin-dark input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(1.2) !important;
+    cursor: pointer !important;
+    opacity: 0.95 !important;
+    padding: 4px;
+    transition: transform 0.2s ease;
+}
+body.admin-dark input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    transform: scale(1.15);
+    opacity: 1 !important;
+}
+
+/* Tombol Kembali / Cancel yang memiliki border dan text ungu (border-purple-900 text-purple-900) atau bg-gray-300 */
+body.admin-dark .border-purple-900,
+body.admin-dark button.border-purple-900,
+body.admin-dark button.bg-gray-300,
+body.admin-dark .bg-gray-300,
+body.admin-dark button.bg-\[\#000080\],
+body.admin-dark .bg-\[\#000080\] {
+    border: 1px solid rgba(148, 163, 184, 0.35) !important;
+    color: #f1f5f9 !important;
+    background: rgba(30, 41, 59, 0.6) !important;
+    border-radius: 12px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+body.admin-dark .border-purple-900:hover,
+body.admin-dark button.border-purple-900:hover,
+body.admin-dark button.bg-gray-300:hover,
+body.admin-dark .bg-gray-300:hover,
+body.admin-dark button.bg-\[\#000080\]:hover,
+body.admin-dark .bg-\[\#000080\]:hover {
+    border-color: #22d3ee !important;
+    color: #22d3ee !important;
+    background: rgba(6, 182, 212, 0.12) !important;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.2) !important;
+}
+
+body.admin-dark .text-purple-900 {
+    color: #f1f5f9 !important;
+}
+
+body.admin-dark input::placeholder,
+body.admin-dark textarea::placeholder {
+    color: #64748b !important;
+}
+
+body.admin-dark input:focus,
+body.admin-dark select:focus,
+body.admin-dark textarea:focus,
+body.admin-dark .focus\:border-\[\#35094D\]:focus {
+    border-color: #22d3ee !important; /* bright cyan */
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.25) !important;
+}
+
+/* Form Labels */
+body.admin-dark label,
+body.admin-dark .text-gray-600,
+body.admin-dark .text-gray-700 {
+    color: #cbd5e1 !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   PURPLE (#35094D) OVERRIDES TO BRIGHT / MODERN THEME
+   ═════════════════════════════════════════════════════════════════════════ */
+
+/* Text elements originally dark purple #35094D */
+body.admin-dark .text-\[\#35094D\] {
+    color: #38bdf8 !important; /* bright sky cyan */
+}
+
+/* Soft muted purple text #35094d90 */
+body.admin-dark .text-\[\#35094d90\] {
+    color: #94a3b8 !important;
+}
+
+/* Borders originally #35094D */
+body.admin-dark .border-\[\#35094D\],
+body.admin-dark [class*="border-[#35094D]"] {
+    border-color: rgba(56, 189, 248, 0.4) !important;
+}
+
+/* Focus rings with #35094D */
+body.admin-dark .focus\:ring-\[\#35094D\]:focus {
+    --tw-ring-color: rgba(6, 182, 212, 0.4) !important;
+}
+
+/* Table body with text-[#35094D] */
+body.admin-dark tbody.text-\[\#35094D\] {
+    color: #cbd5e1 !important;
+}
+
+/* Badges / Chips with purple background */
+body.admin-dark .bg-\[\#35094d10\],
+body.admin-dark .bg-\[\#35094D\]\/10,
+body.admin-dark .bg-purple-50 {
+    background-color: rgba(6, 182, 212, 0.14) !important;
+    color: #38bdf8 !important;
+    border: 1px solid rgba(56, 189, 248, 0.25) !important;
+}
+
+/* Detail page headings and labels */
+body.admin-dark span.text-\[\#35094D\].font-medium,
+body.admin-dark span.text-\[\#35094D\].font-bold,
+body.admin-dark h4.text-\[\#35094D\] {
+    color: #f1f5f9 !important;
+}
+
+/* Subtle avatar icons in page content that had dark purple bg */
+body.admin-dark .w-12.h-12.bg-\[\#35094D\],
+body.admin-dark .w-24.h-24.bg-\[\#35094D\] {
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(139, 92, 246, 0.25)) !important;
+    border: 1px solid rgba(6, 182, 212, 0.3) !important;
+}
+
+/* Buttons using primary purple background #35094D */
+body.admin-dark .bg-\[\#35094D\] {
+    background: linear-gradient(135deg, #0891b2, #7c3aed) !important;
+    border: 1px solid rgba(6, 182, 212, 0.3) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2) !important;
+    transition: all 0.25s ease !important;
+}
+body.admin-dark .bg-\[\#35094D\]:hover {
+    background: linear-gradient(135deg, #06b6d4, #8b5cf6) !important;
+    box-shadow: 0 6px 20px rgba(6, 182, 212, 0.35) !important;
+}
+
+/* Border Gray Dividers - Jelas & Kontras */
+body.admin-dark .border-gray-200,
+body.admin-dark .border-gray-100,
+body.admin-dark .border-gray-300,
+body.admin-dark .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+    border-color: rgba(148, 163, 184, 0.28) !important;
+}
+
+/* Modal Windows */
+body.admin-dark .open_modal .bg-white,
+body.admin-dark .open_modal_loading .bg-white,
+body.admin-dark .open_modal_loading_sidebar .bg-white,
+body.admin-dark #success-modal .bg-white {
+    background-color: #0f172a !important;
+    border: 1px solid rgba(148, 163, 184, 0.2) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6) !important;
+    color: #f1f5f9 !important;
+}
+
+/* Loading indicators text and spinner */
+body.admin-dark .text-loading-sidebar,
+body.admin-dark .text-loading {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+}
+
+body.admin-dark #loading_spinner,
+body.admin-dark #loading_spinner_sidebar {
+    color: #22d3ee !important; /* cyan glow spinner */
+}
+
+body.admin-dark .open_modal h3,
+body.admin-dark #success-modal h3 {
+    color: #f1f5f9 !important;
+}
+
+body.admin-dark .open_modal button.btn_close {
+    background: rgba(30, 41, 59, 0.8) !important;
+    border-color: rgba(148, 163, 184, 0.2) !important;
+    color: #cbd5e1 !important;
+}
+body.admin-dark .open_modal button.btn_close:hover {
+    background: rgba(51, 65, 85, 0.9) !important;
+    color: #ffffff !important;
+}
+
+/* Badges / Chips */
+body.admin-dark .bg-\[\#35094d10\] {
+    background-color: rgba(6, 182, 212, 0.12) !important;
+    color: #22d3ee !important;
+    border: 1px solid rgba(6, 182, 212, 0.2) !important;
+}
+
+/* General Scrollbar */
+body.admin-dark ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+body.admin-dark ::-webkit-scrollbar-track {
+    background: transparent;
+}
+body.admin-dark ::-webkit-scrollbar-thumb {
+    background: rgba(100, 116, 139, 0.35);
+    border-radius: 999px;
+}
+body.admin-dark ::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 116, 139, 0.6);
+}
+

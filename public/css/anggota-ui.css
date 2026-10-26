@@ -1,0 +1,91 @@
+/* ═════════════════════════════════════════════════════════════════════════
+   ANGGOTA / USER UI THEME - MODERN DIGITAL LIBRARY WEB PORTAL
+   Theme: Modern Clean Web App (Full-Width, Top Navbar, Consumer-Facing)
+   ═════════════════════════════════════════════════════════════════════════ */
+
+body.anggota-mode {
+    background-color: #f8fafc !important;
+    color: #1e293b !important;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Header & Typography */
+body.anggota-mode h1,
+body.anggota-mode h2,
+body.anggota-mode h3 {
+    color: #0f172a;
+    letter-spacing: -0.02em;
+}
+
+/* Book Cover Card Hover Lift */
+.book-card {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.12), 0 4px 8px -4px rgba(15, 23, 42, 0.06);
+}
+
+/* Horizontal Scrollbar Hide */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Category Filter Chips */
+.category-chip {
+    transition: all 0.2s ease;
+}
+.category-chip:hover {
+    border-color: #93c5fd;
+    color: #1d4ed8;
+    background-color: #eff6ff;
+}
+.category-chip.active {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    border-color: #2563eb !important;
+    font-weight: 600;
+}
+
+/* Clean Input Style for Anggota */
+body.anggota-mode input[type="text"],
+body.anggota-mode input[type="email"],
+body.anggota-mode input[type="password"],
+body.anggota-mode input[type="date"],
+body.anggota-mode select,
+body.anggota-mode textarea {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background-color: #ffffff;
+    transition: all 0.2s ease;
+}
+
+body.anggota-mode input:focus,
+body.anggota-mode select:focus,
+body.anggota-mode textarea:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* Primary Action Buttons */
+.btn-primary-web {
+    background-color: #2563eb;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+.btn-primary-web:hover {
+    background-color: #1d4ed8;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+

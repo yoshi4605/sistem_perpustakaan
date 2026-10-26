@@ -1,53 +1,71 @@
 @extends('layouts.index')
 
-@section('halaman', 'Daftar Penerbit / Supplier')
-@section('suffix', 'Data penerbit dapat dilihat di sini — pengeditan hanya dapat dilakukan oleh Admin')
+@section('halaman', 'Daftar Penerbit & Rekanan')
 
 @section('main')
-    <section class="mt-20 px-6">
+    <section class="mt-8">
 
-        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 flex items-center gap-3">
-            <div class="text-[#F99D22] flex-shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+        {{-- Notice Banner --}}
+        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 mb-6 flex items-start gap-3">
+            <div class="text-blue-600 flex-shrink-0 mt-0.5">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-            <p class="text-amber-800 text-sm font-medium">
-                Petugas/Pustakawan hanya dapat melihat data penerbit. Untuk menambah, mengubah, atau menghapus data penerbit, silakan hubungi Admin.
-            </p>
+            <div>
+                <p class="text-slate-800 text-sm font-semibold">Direktori Mitra Penerbit</p>
+                <p class="text-slate-600 text-xs mt-0.5">
+                    Pustakawan dapat melihat informasi kontak penerbit dan daftar katalog bukunya. Penambahan atau pengeditan data mitra dikelola oleh Kepala Perpustakaan.
+                </p>
+            </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+        {{-- Cards Grid --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             @forelse ($penerbits as $penerbit)
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col justify-between min-h-[160px]">
-                    <div class="flex items-start gap-4">
-                        <div class="w-12 h-12 bg-[#35094d10] text-[#35094D] flex items-center justify-center rounded-xl flex-shrink-0">
-                            <img src="https://api.iconify.design/ri:building-4-fill.svg?color=%2335094D" class="w-6 h-6 object-contain" alt="Penerbit">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between hover:border-slate-300 transition-all">
+                    <div>
+                        <div class="flex items-start gap-3.5 mb-3">
+                            @if (!empty($penerbit->logo))
+                                <img src="{{ asset('storage/' . $penerbit->logo) }}" alt="{{ $penerbit->nama_penerbit }}"
+                                    class="w-12 h-12 object-contain rounded-xl border border-slate-200 bg-white p-1 flex-shrink-0">
+                            @else
+                                <div class="w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center rounded-xl flex-shrink-0 font-bold border border-blue-100">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                    </svg>
+                                </div>
+                            @endif
+
+                            <div class="flex-1 min-w-0">
+                                <a href="/petugas/daftar-penerbit/{{ $penerbit->id }}/detail" class="group">
+                                    <h4 class="text-base font-bold text-slate-800 truncate group-hover:text-blue-600 transition">{{ $penerbit->nama_penerbit }}</h4>
+                                </a>
+                                <p class="text-xs text-slate-400 font-medium mt-0.5">{{ $penerbit->asal_negara_atau_kota ?? 'Nasional' }}</p>
+                            </div>
                         </div>
 
-                        <div class="flex-1 min-w-0">
-                            <h4 class="text-lg font-bold text-[#35094D] truncate">{{ $penerbit->nama_penerbit }}</h4>
-                            <p class="text-xs text-gray-400 font-medium mt-0.5">{{ $penerbit->asal_negara_atau_kota ?? 'N/A' }}</p>
-                            <p class="text-xs text-gray-500 mt-1 truncate">
-                                {{ $penerbit->email ?? '-' }} &bull; {{ $penerbit->telepon ?? '-' }}
-                            </p>
+                        <div class="space-y-1 text-xs text-slate-500 bg-slate-50 p-3 rounded-xl border border-slate-100">
+                            <p class="truncate"><span class="text-slate-400">Email:</span> {{ $penerbit->email ?? '-' }}</p>
+                            <p class="truncate"><span class="text-slate-400">Telp:</span> {{ $penerbit->telepon ?? '-' }}</p>
                         </div>
                     </div>
 
-                    <div class="border-t border-gray-100 pt-4 mt-4 flex justify-between items-center text-sm">
-                        <span class="text-gray-400">Jumlah Buku</span>
-                        <span class="font-bold text-[#35094D] text-base">
-                            {{ $penerbit->buku_count ?? 0 }} <span class="text-xs font-normal text-gray-400">judul</span>
-                        </span>
+                    <div class="border-t border-slate-100 pt-3.5 mt-4 flex justify-between items-center text-xs">
+                        <span class="text-slate-500 font-medium">Koleksi Buku:</span>
+                        <a href="/petugas/daftar-penerbit/{{ $penerbit->id }}/detail" class="inline-flex items-center gap-1 font-bold text-blue-600 hover:text-blue-700 bg-blue-50 px-2.5 py-1 rounded-lg">
+                            <span>{{ $penerbit->bukus_count ?? 0 }} Judul</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
                     </div>
-
                 </div>
             @empty
-                <div class="col-span-1 md:col-span-2 bg-white p-12 rounded-2xl text-center text-gray-400 border border-gray-100">
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 bg-white p-12 rounded-2xl text-center text-slate-400 border border-slate-200">
                     Tidak ada data penerbit yang ditemukan.
                 </div>
             @endforelse
         </div>
-
     </section>
 @endsection

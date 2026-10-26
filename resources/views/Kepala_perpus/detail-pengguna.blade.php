@@ -13,11 +13,11 @@
                     class="font-medium text-[#35094D] text-[24px] capitalize">{{ $User->username }}({{ $User->Anggota->nomer_induk ?? 'Nomer Induk Belum Di Atur.' }})</span>
                 <span class="text-gray-400 text-[20px]">{{ $User->role }}#{{ $User->id }}</span>
             @endif
-            {{-- @if ($User->role === 'petugas')
-            <span class="font-medium text-[#35094D] text-[24px] capitalize">{{ $User->username }}({{
-                $User->petugas->nomer_induk }})</span>
-            <span class="text-gray-400 text-[20px]">{{ $User->role }}#{{ $User->id }}</span>
-            @endif --}}
+            @if ($User->role === 'petugas')
+                <span
+                    class="font-medium text-[#35094D] text-[24px] capitalize">{{ $User->username }}({{ $User->Petugas->nomer_induk ?? $User->petugas->nomer_induk ?? 'Nomer Induk Belum Di Atur.' }})</span>
+                <span class="text-gray-400 text-[20px]">{{ $User->role }}#{{ $User->id }}</span>
+            @endif
             @if ($User->role === 'kepala_perpus')
                 <span
                     class="font-medium text-[#35094D] text-[24px] capitalize">{{ $User->username }}({{ $User->kepalaPerpus->nomer_induk ?? 'Nomer Induk Belum Di Atur.' }})</span>
@@ -57,7 +57,7 @@
                 {{-- Data Lainya --}}
                 <div>
                     <div class="mb-4">
-                        <span class="text-[20px] text-[#35094D] font-medium">Nis/Nis: </span>
+                        <span class="text-[20px] text-[#35094D] font-medium">Nomor Induk: </span>
                         {{-- Anggota - Nomer Induk --}}
                         @if ($User->role === 'anggota')
                             <span class="block text-[18px] text-gray-400">{{ $User->anggota->nomer_induk ?? 'N/A' }}</span>
@@ -146,7 +146,7 @@
         </div>
         <div class="flex justify-between mt-6">
             <button onclick="window.history.back()"
-                class="bg-gray-300 font-medium px-8 py-3 cursor-pointer rounded-lg">Kembali</button>
+                class="bg-[#000080] font-medium px-8 py-3 cursor-pointer rounded-lg">Kembali</button>
             <div>
                 <button data-user-id="{{ $User->id }}"
                     class="btn_open_delete bg-[#FFC5C5] text-white font-medium px-10 py-3 cursor-pointer rounded-lg">Hapus

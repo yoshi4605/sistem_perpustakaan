@@ -9,9 +9,9 @@ class Penerbit extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_penerbit', 'alamat', 'email', 'telepon', 'website'];
+    protected $fillable = ['nama_penerbit', 'logo', 'alamat', 'email', 'telepon', 'website'];
     public function bukus()
     {
-        return $this->hasMany(Buku::class, 'id_penerbit', 'id');
+        return $this->hasMany(Buku::class, 'penerbit_id', 'id');
     }
 }

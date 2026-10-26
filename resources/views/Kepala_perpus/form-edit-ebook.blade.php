@@ -82,12 +82,14 @@
         </div>
 
         {{-- Action --}}
-        <div class="flex justify-between mt-4">
-            <button type="button" onclick="window.history.back()"
-                class="bg-gray-300 font-medium px-10 py-2 cursor-pointer rounded-lg">Kembali</button>
+        <div class="flex justify-between items-center mt-6 pt-2">
+            <button type="button" onclick="window.location='/input-ebook'"
+                class="px-8 py-2.5 border border-slate-700 text-slate-200 hover:text-white hover:border-cyan-500 hover:bg-slate-800 rounded-xl font-medium text-sm transition-all cursor-pointer">
+                Kembali
+            </button>
 
             <button type="submit"
-                class="btn_simpan_perubahan bg-[#35094D] text-white py-2 px-10 cursor-pointer rounded mt-5 flex items-center gap-2">
+                class="btn_simpan_perubahan bg-[#35094D] text-white py-2.5 px-10 cursor-pointer rounded-xl flex items-center gap-2">
                 <svg class="spinner_load hidden animate-spin h-5 w-5 text-white"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>

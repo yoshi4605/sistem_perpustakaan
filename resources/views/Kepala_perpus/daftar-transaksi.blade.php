@@ -54,24 +54,24 @@
             </div>
         </div>
 
-        <div class="bg-white w-full rounded-xl mt-10 p-6">
-            <table class="w-full">
+        <div class="bg-white w-full rounded-2xl mt-8 p-6 shadow-xl border border-slate-700/60 overflow-x-auto">
+            <table class="w-full min-w-[850px] border-collapse">
                 <thead>
                     <tr class="text-left border-b border-gray-200">
-                        <th class="pb-4 text-center text-gray-400 font-normal">Kode Buku</th>
-                        <th class="pb-4 text-center text-gray-400 font-normal">Nik/Nis</th>
-                        <th class="pb-4 text-center text-gray-400 font-normal">Nama Peminjam</th>
+                        <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Kode Buku</th>
+                        <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Nik/Nis</th>
+                        <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Nama Peminjam</th>
                         @if ($jenis_transaksi === 'pengembalian')
-                            <th class="pb-4 text-center text-gray-400 font-normal">Tanggal Dikembalikan</th>
-                            <th class="pb-4 text-center text-gray-400 font-normal">Hari Telat</th>
-                            <th class="pb-4 text-center text-gray-400 font-normal">Denda Terbayar</th>
+                            <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Tanggal Dikembalikan</th>
+                            <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Hari Telat</th>
+                            <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Denda Terbayar</th>
                         @else
-                            <th class="pb-4 text-center text-gray-400 font-normal">Tanggal Pinjam</th>
-                            <th class="pb-4 text-center text-gray-400 font-normal">Tanggal Jatuh Tempo</th>
+                            <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Tanggal Pinjam</th>
+                            <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Tanggal Jatuh Tempo</th>
                         @endif
-                        <th class="pb-4 text-center text-gray-400 font-normal">Petugas</th>
-                        <th class="pb-4 text-center text-gray-400 font-normal">Detail</th>
-                        <th class="pb-4 text-center text-gray-400 font-normal">Status Konfirmasi</th>
+                        <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Petugas</th>
+                        <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Detail</th>
+                        <th class="py-3.5 px-4 text-center text-slate-300 font-semibold uppercase text-xs tracking-wider whitespace-nowrap">Status Konfirmasi</th>
                     </tr>
                 </thead>
                 <tbody class="text-[#35094D]">
@@ -152,7 +152,8 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center py-4 text-gray-500">Tidak ada data yang ditemukan.
+                            <td colspan="9" class="text-center py-10 px-4 text-slate-400 italic">
+                                Tidak ada data transaksi yang ditemukan.
                             </td>
                         </tr>
                     @endforelse

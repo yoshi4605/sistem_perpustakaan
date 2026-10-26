@@ -102,12 +102,17 @@
 
                     {{-- Input Penerbit --}}
                 <div class="mb-4">
-                    <label for="penerbit" class="block text-sm font-medium text-gray-700 mb-1">Penerbit</label>
-                    <input type="text" id="penerbit" name="penerbit" 
-                        value="{{ old('penerbit', $buku->penerbit ?? '') }}" 
-                        placeholder="Contoh: Gramedia, Bentang Pustaka..."
-                        class="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-[#35094D] transition-colors @error('penerbit') border-red-500 @enderror">
-                    @error('penerbit')
+                    <label for="penerbit_id" class="block text-sm font-medium text-gray-700 mb-1">Penerbit</label>
+                    <select id="penerbit_id" name="penerbit_id"
+                        class="w-full border border-gray-300 rounded-md px-4 py-2 outline-none focus:border-[#35094D] transition-colors @error('penerbit_id') border-red-500 @enderror">
+                        <option value="">-- Pilih Penerbit --</option>
+                        @foreach ($penerbits as $p)
+                            <option value="{{ $p->id }}" {{ old('penerbit_id') == $p->id ? 'selected' : '' }}>
+                                {{ $p->nama_penerbit }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('penerbit_id')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -177,12 +182,12 @@
                 <!-- Button -->
                 <div class="flex gap-4 pt-4">
                     <button type="button" onclick="window.location='/kelola-buku'"
-                        class="px-6 py-2 border border-purple-900 text-purple-900 rounded-md">
+                        class="px-6 py-2.5 border border-slate-700 text-slate-300 hover:bg-slate-800 rounded-xl font-medium text-sm transition-all cursor-pointer">
                         Kembali
                     </button>
 
                     <button id="" type="submit"
-                        class="btn_simpan_perubahan bg-[#35094D] text-white py-2 px-10 cursor-pointer rounded flex items-center gap-2">
+                        class="btn_simpan_perubahan bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white py-2.5 px-10 cursor-pointer rounded-xl font-semibold text-sm shadow-lg shadow-cyan-900/30 flex items-center gap-2 transition-all">
                         <svg id="" class="spinner_load hidden animate-spin h-5 w-5 text-white"
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
@@ -192,7 +197,7 @@
                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                             </path>
                         </svg>
-                        <span class="text_simpan">Simpan Perubahan</span>
+                        <span class="text_simpan">Simpan Buku</span>
                     </button>
                 </div>
             </div>

@@ -104,11 +104,20 @@ class KelolaPenggunaController extends Controller
             $profilePhoto = $request->file('profile_photo')->store('profile_photos', 'public');
         }
 
+        // Auto-generate email @mylibrary.com untuk staff (petugas/kepala_perpus)
+        $email = $request->email;
+        if (in_array($request->role, ['petugas', 'kepala_perpus'])) {
+            // Jika email belum memiliki domain @mylibrary.com, generate dari username
+            if (!str_ends_with(strtolower($email), '@mylibrary.com')) {
+                $email = $this->generateStaffEmail($request->username);
+            }
+        }
+
         // Buat Data User Baru
         $user = User::create([
             "username"        =>    $request->username,
             "no_telepon"      =>    $request->no_telepon,
-            "email"           =>    $request->email,
+            "email"           =>    $email,
             "password"        => Hash::make($request->password),
             "role"            =>    $request->role,
             "profile_photo"   =>    $profilePhoto
@@ -306,5 +315,21 @@ class KelolaPenggunaController extends Controller
 
         $user->delete($user->id);
         return redirect('/daftar-pengguna')->with('success', 'Success!, Berhasil Menghapus Akun.');
+    }
+
+    /**
+     * Generate email @mylibrary.com dari username untuk staff.
+     * Spasi diubah jadi titik, huruf kecil, karakter spesial dihapus.
+     * Contoh: "Yosep Sudirman" → "yosep.sudirman@mylibrary.com"
+     */
+    private function generateStaffEmail(string $username): string
+    {
+        $sanitized = strtolower(trim($username));
+        $sanitized = preg_replace('/[^a-z0-9\s._-]/', '', $sanitized);
+        $sanitized = preg_replace('/\s+/', '.', $sanitized);
+        $sanitized = preg_replace('/\.{2,}/', '.', $sanitized);
+        $sanitized = trim($sanitized, '.');
+
+        return $sanitized . '@mylibrary.com';
     }
 }

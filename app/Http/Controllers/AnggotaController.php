@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Meja;
 use App\Models\Peminjaman;
 use App\Models\Pengembalian;
 use Carbon\Carbon;
@@ -78,11 +79,15 @@ class AnggotaController extends Controller
             }
         }
 
+        // Rekomendasi Buku Terbaru untuk Tampilan Web Portal
+        $bukuRekomendasi = Buku::latest()->take(8)->get();
+
         return view('Anggota.dashboard', [
-            "Presentase"   =>    $this->calculatePresentase(),
-            "Pinjaman_aktif"  =>  $Pinjaman_aktif,
-            "totalPinjaman"   =>   $totalPinjaman,
-            "totalPengembalian" =>  $totalPengembalian
+            "Presentase"        =>  $this->calculatePresentase(),
+            "Pinjaman_aktif"    =>  $Pinjaman_aktif,
+            "totalPinjaman"     =>  $totalPinjaman,
+            "totalPengembalian" =>  $totalPengembalian,
+            "bukuRekomendasi"   =>  $bukuRekomendasi
         ]);
     }
 
@@ -158,11 +163,13 @@ class AnggotaController extends Controller
     ->paginate(10)
     ->withQueryString();
 
-    $kategoris = Buku::whereNotNull('kategori')
-        ->where('kategori', '!=', '')
-        ->distinct()
-        ->orderBy('kategori')
-        ->pluck('kategori');
+    $kategoris = collect([
+        'Buku Teks', 'Novel', 'Fiksi', 'Non-Fiksi', 'Ilmu Pengetahuan',
+        'Teknologi & Komputer', 'Ekonomi & Bisnis', 'Hukum',
+        'Kesehatan & Kedokteran', 'Pendidikan', 'Agama & Spiritualitas',
+        'Sejarah', 'Biografi', 'Seni & Budaya', 'Majalah', 'Koran',
+        'Komik & Manga', 'Anak-anak', 'Referensi & Kamus', 'Lainnya',
+    ]);
 
     return view('Anggota.daftar-buku', [
         "Bukus"     => $bukus,
@@ -181,5 +188,68 @@ class AnggotaController extends Controller
             "buku"   =>    $buku,
             "pending"  =>  $pengajuan_pending
         ]);
+    }
+
+    // KF-04: Halaman Denah & Ketersediaan Bangku Baca
+    public function bangkuBaca()
+    {
+        $mejas = Meja::with('user.Anggota')
+            ->orderBy('kode_meja')
+            ->orderBy('nomor_bangku')
+            ->get()
+            ->groupBy('kode_meja');
+
+        // Cek apakah anggota saat ini sedang menduduki suatu bangku
+        $myBangku = Meja::where('user_id', Auth::id())
+            ->where('status', 'terisi')
+            ->first();
+
+        return view('Anggota.bangku-baca', compact('mejas', 'myBangku'));
+    }
+
+    // KF-04: Pilih / Tempati Bangku Baca
+    public function pilihBangku(Request $request, $id)
+    {
+        $meja = Meja::findOrFail($id);
+
+        if ($meja->status === 'terisi' && $meja->user_id !== Auth::id()) {
+            return back()->with('error', 'Maaf, bangku ' . $meja->kode_meja . '-' . $meja->nomor_bangku . ' baru saja terisi oleh pengguna lain.');
+        }
+
+        // Lepas bangku sebelumnya jika user sedang menempati bangku lain
+        Meja::where('user_id', Auth::id())
+            ->where('id', '!=', $id)
+            ->update([
+                'status' => 'kosong',
+                'user_id' => null,
+                'terakhir_diperbarui' => now(),
+            ]);
+
+        // Tempati bangku ini
+        $meja->update([
+            'status' => 'terisi',
+            'user_id' => Auth::id(),
+            'terakhir_diperbarui' => now(),
+        ]);
+
+        return back()->with('success', 'Berhasil memilih Bangku ' . $meja->kode_meja . '-' . $meja->nomor_bangku . ' untuk membaca di tempat. Selamat membaca!');
+    }
+
+    // KF-04: Selesai Membaca & Kosongkan Bangku
+    public function selesaiBangku(Request $request, $id)
+    {
+        $meja = Meja::findOrFail($id);
+
+        if ($meja->user_id !== Auth::id()) {
+            return back()->with('error', 'Anda tidak memiliki hak untuk mengosongkan bangku ini.');
+        }
+
+        $meja->update([
+            'status' => 'kosong',
+            'user_id' => null,
+            'terakhir_diperbarui' => now(),
+        ]);
+
+        return back()->with('success', 'Selesai membaca. Bangku ' . $meja->kode_meja . '-' . $meja->nomor_bangku . ' telah dikosongkan. Terima kasih!');
     }
 }

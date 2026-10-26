@@ -28,7 +28,7 @@
                         @error('username')
                             <div class="text-red-500 text-[14px]">{{ $message }}</div>
                         @enderror
-                        <input type="text" name="username"
+                        <input type="text" name="username" id="usernameInput"
                             class="mt-1 block w-full border border-gray-200 rounded-md bg-white p-2 text-gray-400"
                             value="{{ old('username') }}" placeholder="Masukan Username">
                     </div>
@@ -39,9 +39,15 @@
                         @error('email')
                             <div class="text-red-500 text-[14px]">{{ $message }}</div>
                         @enderror
-                        <input type="email" name="email"
-                            class="mt-1 block w-full border border-gray-200 rounded-md bg-white p-2 text-gray-400"
-                            value="{{ old('email') }}" placeholder="Masukan Email">
+                        <div class="relative">
+                            <input type="email" name="email" id="emailInput"
+                                class="mt-1 block w-full border border-gray-200 rounded-md bg-white p-2 text-gray-400"
+                                value="{{ old('email') }}" placeholder="Masukan Email">
+                            <span id="emailDomainBadge" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-xs font-semibold text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded-lg pointer-events-none">
+                                @mylibrary.com
+                            </span>
+                        </div>
+                        <p id="emailAutoHint" class="hidden text-xs text-cyan-400 mt-1">✦ Email otomatis dibuat dari username</p>
                     </div>
 
                     {{-- No telp --}}
@@ -100,7 +106,7 @@
                         @error('role')
                             <div class="text-red-500 text-[14px]">{{ $message }}</div>
                         @enderror
-                        <select name="role"
+                        <select name="role" id="roleSelect"
                             class="mt-1 block w-full border border-gray-200 text-gray-400 rounded-md bg-white p-2">
                             <option value="" disabled {{ old('role') ? '' : 'selected' }}>
                                 Pilih Role
@@ -196,7 +202,7 @@
             <div class="flex justify-between">
                 {{-- Kembali --}}
                 <button type="button" onclick="window.history.back()"
-                    class="bg-gray-300 font-medium px-10 py-2 cursor-pointer rounded-lg">Kembali</button>
+                    class="bg-[#000080] font-medium px-10 py-2 cursor-pointer rounded-lg">Kembali</button>
 
                 {{-- Btn Simpan Perubahan --}}
                 <button id="" type="submit"
@@ -215,4 +221,89 @@
             </div>
         </form>
     </section>
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const usernameInput = document.getElementById('usernameInput');
+        const emailInput = document.getElementById('emailInput');
+        const roleSelect = document.getElementById('roleSelect');
+        const emailDomainBadge = document.getElementById('emailDomainBadge');
+        const emailAutoHint = document.getElementById('emailAutoHint');
+
+        let emailManuallyEdited = false;
+
+        function sanitizeForEmail(username) {
+            return username
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s._-]/g, '') // hapus karakter spesial
+                .replace(/\s+/g, '.')             // spasi jadi titik
+                .replace(/\.{2,}/g, '.')           // hapus titik ganda
+                .replace(/^\.+|\.+$/g, '');        // hapus titik awal/akhir
+        }
+
+        function isStaffRole() {
+            return roleSelect.value === 'petugas' || roleSelect.value === 'kepala_perpus';
+        }
+
+        function generateEmail() {
+            if (!isStaffRole() || emailManuallyEdited) return;
+
+            const username = usernameInput.value;
+            if (username.trim() === '') {
+                emailInput.value = '';
+                return;
+            }
+
+            const sanitized = sanitizeForEmail(username);
+            if (sanitized) {
+                emailInput.value = sanitized + '@mylibrary.com';
+            }
+        }
+
+        function updateUIState() {
+            if (isStaffRole()) {
+                emailDomainBadge.classList.remove('hidden');
+                emailAutoHint.classList.remove('hidden');
+                emailInput.placeholder = 'Otomatis dari username';
+                emailManuallyEdited = false;
+                generateEmail();
+            } else {
+                emailDomainBadge.classList.add('hidden');
+                emailAutoHint.classList.add('hidden');
+                emailInput.placeholder = 'Masukan Email';
+                // Kosongkan jika masih @mylibrary.com
+                if (emailInput.value.endsWith('@mylibrary.com')) {
+                    emailInput.value = '';
+                }
+            }
+        }
+
+        // Event listeners
+        roleSelect.addEventListener('change', updateUIState);
+
+        usernameInput.addEventListener('input', function() {
+            if (isStaffRole() && !emailManuallyEdited) {
+                generateEmail();
+            }
+        });
+
+        // Deteksi jika admin sengaja mengedit email secara manual
+        emailInput.addEventListener('input', function() {
+            if (isStaffRole()) {
+                const username = usernameInput.value;
+                const expected = sanitizeForEmail(username) + '@mylibrary.com';
+                // Jika user mengetik sesuatu yang berbeda dari auto-generated, tandai manual
+                emailManuallyEdited = (emailInput.value !== expected && emailInput.value !== '');
+            }
+        });
+
+        // Inisialisasi saat load (untuk kasus old() values)
+        if (roleSelect.value) {
+            updateUIState();
+        }
+    });
+</script>
+@endsection
 @endsection

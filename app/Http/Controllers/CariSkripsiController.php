@@ -15,7 +15,7 @@ class CariSkripsiController extends Controller
             return $query->where('judul_skripsi', 'like', "%{$cari}%")
                          ->orWhere('nama_penulis', 'like', "%{$cari}%")
                          ->orWhere('npm', 'like', "%{$cari}%");
-        })->latest()->get();
+        })->latest()->paginate(10)->withQueryString();
         return view('Anggota.cari-skripsi', compact('skripsis'));
     }
 }

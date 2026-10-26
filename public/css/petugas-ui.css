@@ -1,0 +1,239 @@
+/* ═════════════════════════════════════════════════════════════════════════
+   PETUGAS / PUSTAKAWAN UI THEME - SIMPLE, CLEAN, CALM & USER-FRIENDLY
+   Theme: Modern Clean Slate & Indigo (Fokus Kerja Harian Meja Sirkulasi)
+   ═════════════════════════════════════════════════════════════════════════ */
+
+body.petugas-mode {
+    background-color: #f8fafc !important; /* Soft slate neutral background */
+    color: #1e293b !important;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Header Greeting */
+body.petugas-mode h1.text-\[\#35094D\] {
+    color: #0f172a !important; /* Deep Slate */
+    font-weight: 700 !important;
+}
+
+body.petugas-mode h1.text-\[\#35094D\] span {
+    color: #2563eb !important; /* Clean Blue Accent */
+}
+
+body.petugas-mode span.text-\[\#35094d90\] {
+    color: #64748b !important; /* Slate 500 */
+}
+
+body.petugas-mode span.text-\[\#35094d90\] span.text-\[\#35094D\] {
+    color: #1e293b !important;
+    font-weight: 600 !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   SIDEBAR PETUGAS - CLEAN WHITE, CLEAR GROUPS & ACTIVE HIGHLIGHT
+   ═════════════════════════════════════════════════════════════════════════ */
+body.petugas-mode #sidebar-nav {
+    background-color: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Sidebar Brand Title */
+body.petugas-mode #sidebar-nav .sidebar-brand-title {
+    color: #0f172a !important;
+    font-weight: 800 !important;
+}
+
+/* Sidebar Section Headers */
+body.petugas-mode #sidebar-nav .sidebar-section-title {
+    color: #94a3b8 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+}
+
+/* Sidebar Menu Item */
+body.petugas-mode #sidebar-nav a {
+    color: #475569 !important; /* Slate 600 */
+    border-radius: 12px !important;
+    padding: 9px 12px !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    transition: all 0.2s ease !important;
+}
+
+body.petugas-mode #sidebar-nav a:hover {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+}
+
+/* Sidebar Active Menu Item */
+body.petugas-mode #sidebar-nav a.active-menu,
+body.petugas-mode #sidebar-nav a[class*="text-[#35094D] font-semibold"] {
+    background-color: #eff6ff !important; /* Soft Blue tint */
+    color: #2563eb !important; /* Primary Blue */
+    font-weight: 600 !important;
+    border: 1px solid rgba(37, 99, 235, 0.15) !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   CARDS & CONTAINERS
+   ═════════════════════════════════════════════════════════════════════════ */
+body.petugas-mode .bg-white {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -2px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Headings in Page Content */
+body.petugas-mode h2.text-\[\#35094D\],
+body.petugas-mode h2.text-gray-500,
+body.petugas-mode h2.text-gray-800,
+body.petugas-mode span.text-\[\#35094D\] {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   TABLES - CLEAN, GENEROUS BREATHING ROOM & GENTLE HOVER
+   ═════════════════════════════════════════════════════════════════════════ */
+body.petugas-mode table thead tr {
+    background-color: #f8fafc !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+}
+
+body.petugas-mode table thead th {
+    color: #64748b !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    padding: 14px 16px !important;
+}
+
+body.petugas-mode table thead th:first-child {
+    border-top-left-radius: 12px;
+}
+body.petugas-mode table thead th:last-child {
+    border-top-right-radius: 12px;
+}
+
+body.petugas-mode table tbody tr {
+    border-bottom: 1px solid #f1f5f9 !important;
+    transition: background-color 0.15s ease !important;
+}
+
+body.petugas-mode table tbody tr:hover {
+    background-color: #f8fafc !important; /* Gentle hover row highlight */
+}
+
+body.petugas-mode table tbody td {
+    padding: 14px 16px !important;
+    color: #334155 !important;
+    font-size: 14px !important;
+    vertical-align: middle !important;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+   BUTTONS & BADGES (CLEAR, SIMPLE & ACCESSIBLE)
+   ═════════════════════════════════════════════════════════════════════════ */
+/* Primary Action Button (sebelumnya bg-[#35094D] ungu) */
+body.petugas-mode .bg-\[\#35094D\],
+body.petugas-mode button.bg-\[\#35094D\],
+body.petugas-mode a.bg-\[\#35094D\] {
+    background-color: #2563eb !important; /* Clean Blue 600 */
+    color: #ffffff !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+body.petugas-mode .bg-\[\#35094D\]:hover,
+body.petugas-mode button.bg-\[\#35094D\]:hover,
+body.petugas-mode a.bg-\[\#35094D\]:hover {
+    background-color: #1d4ed8 !important; /* Blue 700 */
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* Secondary / Back Button */
+body.petugas-mode button.bg-gray-300,
+body.petugas-mode .bg-gray-300,
+body.petugas-mode .border-purple-900,
+body.petugas-mode button.bg-\[\#000080\] {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #475569 !important;
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s ease !important;
+}
+
+body.petugas-mode button.bg-gray-300:hover,
+body.petugas-mode .bg-gray-300:hover,
+body.petugas-mode .border-purple-900:hover,
+body.petugas-mode button.bg-\[\#000080\]:hover {
+    background-color: #f1f5f9 !important;
+    border-color: #94a3b8 !important;
+    color: #0f172a !important;
+}
+
+/* Status Badges */
+body.petugas-mode .bg-\[\#16C09861\],
+body.petugas-mode .bg-emerald-50 {
+    background-color: #ecfdf5 !important;
+    color: #059669 !important;
+    border: 1px solid #a7f3d0 !important;
+    font-weight: 600 !important;
+}
+
+body.petugas-mode .bg-yellow-100 {
+    background-color: #fffbeb !important;
+    color: #d97706 !important;
+    border: 1px solid #fde68a !important;
+    font-weight: 600 !important;
+}
+
+body.petugas-mode .bg-red-200,
+body.petugas-mode .bg-rose-50 {
+    background-color: #fff1f2 !important;
+    color: #e11d48 !important;
+    border: 1px solid #fecdd3 !important;
+    font-weight: 600 !important;
+}
+
+body.petugas-mode .bg-\[\#35094D\]\/10,
+body.petugas-mode .bg-\[\#35094d10\],
+body.petugas-mode .bg-purple-50 {
+    background-color: #eff6ff !important;
+    color: #2563eb !important;
+    border: 1px solid #bfdbfe !important;
+    font-weight: 600 !important;
+}
+
+/* Forms & Inputs */
+body.petugas-mode input[type="text"],
+body.petugas-mode input[type="number"],
+body.petugas-mode input[type="email"],
+body.petugas-mode input[type="password"],
+body.petugas-mode input[type="date"],
+body.petugas-mode textarea,
+body.petugas-mode select {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    border-radius: 10px !important;
+    padding: 10px 14px !important;
+    font-size: 14px !important;
+    transition: all 0.2s ease;
+}
+
+body.petugas-mode input:focus,
+body.petugas-mode textarea:focus,
+body.petugas-mode select:focus {
+    border-color: #2563eb !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+}
+

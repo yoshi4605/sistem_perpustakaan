@@ -11,24 +11,24 @@
             @csrf
             @method('PUT')
             {{-- POTO Profile --}}
-            <div class="flex items-center gap-4">
-                <img class="photoPreview w-20 h-20 object-cover border border-gray-200 p-1" id="" src="{{ Auth::user()->profile_photo
+            <div class="flex items-center gap-5">
+                <img class="photoPreview w-20 h-20 object-cover rounded-2xl border border-cyan-500/30 p-1 bg-slate-900/60 shadow-lg" id="" src="{{ Auth::user()->profile_photo
         ? asset('storage/' . Auth::user()->profile_photo)
-        : asset('icons/default-avatar.png') }}" alt="">
+        : asset('icons/default-avatar.png') }}" alt="Profile Photo">
                 <input type="file" class="photoInput" name="profile_photo" hidden>
 
                 <div class="flex flex-col">
-                    <span class="text-[20px] text-[#35094D] font-medium capitalize">{{ Auth::user()->username }}</span>
-                    <span class="text-[#35094d90] text-[11px]">Admin#{{ Auth::user()->id }}</span>
+                    <span class="text-[20px] text-white font-bold capitalize">{{ Auth::user()->username }}</span>
+                    <span class="text-cyan-400 text-xs font-semibold mt-0.5">Admin #{{ Auth::user()->id }}</span>
                     @error('profile_photo')
-                        <div class="text-red-500 text-[14px]">{{ $message }}</div>
+                        <div class="text-rose-400 text-xs mt-1">{{ $message }}</div>
                     @enderror
                 </div>
-                <div class="flex items-center gap-4 ml-10">
-                    <button class="uploadBtn bg-[#35094D] text-white px-4 py-2 rounded-sm cursor-pointer" type="button"
+                <div class="flex items-center gap-3 ml-8">
+                    <button class="uploadBtn bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white px-5 py-2.5 rounded-xl font-medium text-sm transition-all shadow-md shadow-cyan-900/30 cursor-pointer" type="button"
                         id="">Upload Foto Baru</button>
                     <button form="deleteProfilePicture"
-                        class="text-[#35094D] border border-gray-200 cursor-pointer px-4 py-2 rounded-sm"
+                        class="text-rose-400 border border-rose-500/40 hover:bg-rose-500/10 px-5 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer"
                         type="submit">Hapus Foto</button>
                 </div>
             </div>

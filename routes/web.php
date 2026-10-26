@@ -22,6 +22,7 @@ use App\Http\Controllers\EbookController;
 use App\Http\Controllers\SkripsiController;
 use App\Http\Controllers\CariSkripsiController;
 use App\Http\Controllers\PenerbitController;
+use App\Http\Controllers\DendaPaymentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -51,6 +52,8 @@ Route::middleware(isAnggota::class)->group(function () {
     Route::get('/riwayat-pinjaman', [AnggotaController::class, 'riwayat_pinjaman']);
     // Denda Saya
     Route::get('/denda-anggota', [AnggotaController::class, 'dendaAnggota']);
+    Route::post('/denda/snap-token/{id}', [DendaPaymentController::class, 'getSnapToken']);
+    Route::post('/denda/payment-success', [DendaPaymentController::class, 'paymentSuccess']);
     // Daftar Buku
     Route::get('/daftar-buku', [AnggotaController::class, 'daftar_buku']);
     // Ajukan Buku
@@ -59,6 +62,11 @@ Route::middleware(isAnggota::class)->group(function () {
     Route::post('/kembalikan-buku/{id}',[PeminjamanController::class, 'kembalikanBuku']);
     // Detail Buku
     Route::get('/daftar-buku/detail-buku={buku:id}', [AnggotaController::class, 'detail_buku']);
+
+    // KF-04: Bangku Baca & Denah Ketersediaan untuk Anggota
+    Route::get('/bangku-baca', [AnggotaController::class, 'bangkuBaca']);
+    Route::post('/bangku-baca/pilih/{id}', [AnggotaController::class, 'pilihBangku']);
+    Route::post('/bangku-baca/selesai/{id}', [AnggotaController::class, 'selesaiBangku']);
 
     // Profile Anggota
     Route::get('/profile-anggota', [ProfileController::class, 'profile_anggota']);
@@ -86,8 +94,9 @@ Route::middleware(isPetugas::class)->group(function () {
     // Dashboard Petugas
     Route::get('/dashboard-petugas', [PetugasController::class, 'Dashboard_petugas']);
     // End Dashboard Petugas
-    // Tambahkan route ini
-    Route::get('/daftar-pengunjung', [PengunjungController::class, 'index']);
+    // Daftar Penerbit (view only)
+    Route::get('/petugas/daftar-penerbit', [PenerbitController::class, 'indexPetugas']);
+    Route::get('/petugas/daftar-penerbit/{id}/detail', [PenerbitController::class, 'showPetugas']);
     Route::get('/petugas/daftar-tamu', [PengunjungController::class, 'daftarTamuPetugas']);
     // Pengajuan & pengembalian & pembayaran
     Route::get('/pengajuan',[PetugasController::class, 'pengajuan']);
@@ -133,8 +142,6 @@ Route::middleware(isKepalaPerpus::class)->group(function () {
     // End Kelola Daftar Transaksi
     Route::get('/report-belum-kembali', [LaporanController::class, 'reportBelumKembaliKepala']);
 
-    // Tambahkan route ini
-    Route::get('/daftar-pengunjung', [PengunjungController::class, 'index']);
     // Daftar Laporan
     Route::get('/daftar-laporan', [LaporanController::class, 'daftarLaporanKepalaPerpus']);
     // End Daftar Laporan
@@ -168,6 +175,26 @@ Route::middleware(isKepalaPerpus::class)->group(function () {
     Route::get('/profile-kepala-perpus', [ProfileController::class, 'profile_kepala_perpus']);
     Route::put('/profile-kepala-perpus', [ProfileController::class, 'profile_update']);
     // End Profile Kepala Perpus
+
+    // Kelola Penerbit (Admin)
+    Route::get('/daftar-penerbit', [PenerbitController::class, 'index']);
+    Route::get('/daftar-penerbit/tambah', [PenerbitController::class, 'create']);
+    Route::post('/daftar-penerbit', [PenerbitController::class, 'store']);
+    Route::get('/daftar-penerbit/{id}/detail', [PenerbitController::class, 'show']);
+    Route::get('/daftar-penerbit/{id}/edit', [PenerbitController::class, 'editPage']);
+    Route::put('/daftar-penerbit/{id}', [PenerbitController::class, 'update']);
+    Route::delete('/daftar-penerbit/{id}', [PenerbitController::class, 'destroy']);
+    // End Kelola Penerbit
+});
+
+// Route Akses Buku Tamu / Pengunjung (Petugas & Kepala Perpustakaan)
+Route::middleware(['auth'])->get('/daftar-pengunjung', function (\Illuminate\Http\Request $request) {
+    if (Auth::user()->role === 'petugas') {
+        return redirect('/petugas/daftar-tamu');
+    } elseif (Auth::user()->role === 'kepala_perpus') {
+        return app(\App\Http\Controllers\PengunjungController::class)->index($request);
+    }
+    abort(404);
 });
 
 // Kelola Buku Petugas Perpus, Dan Kepala Perpus
@@ -199,11 +226,7 @@ Route::get('/log-ebook', [EbookController::class, 'indexLog']);
 
 
 Route::get('/cari-skripsi', [CariSkripsiController::class, 'index']);
-Route::get('/daftar-penerbit', [PenerbitController::class, 'index']);
-Route::post('/daftar-penerbit', [PenerbitController::class, 'store']);
-Route::get('/daftar-penerbit/tambah-penerbit', [PenerbitController::class, 'index']);
-Route::get('/petugas/daftar-penerbit', [PenerbitController::class, 'indexPetugas']);
-Route::get('/daftar-penerbit/tambah', [PenerbitController::class, 'create']);
-Route::put('/daftar-penerbit/{id}', [PenerbitController::class, 'update']);
-Route::delete('/daftar-penerbit/{id}', [PenerbitController::class, 'destroy']);
-Route::get('/daftar-penerbit/{id}/edit', [PenerbitController::class, 'editPage']);
+
+
+// Webhook Midtrans (Endpoint Notifikasi Publik)
+Route::post('/midtrans-notification', [DendaPaymentController::class, 'handleWebhook']);

@@ -47,86 +47,90 @@
 
     {{-- Table Pinjaman Aktif, Pending Dan Kembalikan(Pending) --}}
     <section>
-        <div class="bg-white w-full rounded-xl mt-4 p-6">
-            <div class="font-medium pb-4">Aktif</div>
+        <div class="bg-white w-full rounded-2xl mt-4 p-6 shadow-xl border border-slate-700/60 overflow-x-auto">
+            <div class="font-bold text-white text-base pb-4">Aktif</div>
             {{-- Table Riwayat Aktif (Pending Dan Aktif) --}}
-            <table class="w-full">
-                <thead class="text-gray-500 font-medium">
-    <tr>
-        <th class="py-4 text-center">Cover</th>
-        <th class="py-4 text-center">ISBN</th>
-        <th class="py-4 text-center">Judul Buku</th>
-        <th class="py-4 text-center">Penulis</th>
-        
-        <th class="py-4 text-center">Kategori</th>
-        <th class="py-4 text-center">Rak</th>
-        <th class="py-4 text-center">Penerbit</th>
-        
-        <th class="py-4 text-center">Tahun Terbit</th>
-        <th class="py-4 text-center">Stok Buku</th>
-        <th class="py-4 text-center">Aksi</th>
-    </tr>
-</thead>
+            <table class="w-full min-w-[950px] border-collapse">
+                <thead class="text-slate-300 font-semibold text-xs uppercase tracking-wider">
+                    <tr>
+                        <th class="py-3.5 px-4 text-center whitespace-nowrap">Cover</th>
+                        <th class="py-3.5 px-4 text-center whitespace-nowrap">ISBN</th>
+                        <th class="py-3.5 px-5 text-center whitespace-nowrap">Judul Buku</th>
+                        <th class="py-3.5 px-4 text-center whitespace-nowrap">Penulis</th>
+                        <th class="py-3.5 px-4 text-center whitespace-nowrap">Kategori</th>
+                        <th class="py-3.5 px-4 text-center whitespace-nowrap">Rak</th>
+                        <th class="py-3.5 px-4 text-center whitespace-nowrap">Penerbit</th>
+                        <th class="py-3.5 px-6 text-center whitespace-nowrap min-w-[130px]">Tahun Terbit</th>
+                        <th class="py-3.5 px-6 text-center whitespace-nowrap min-w-[110px]">Stok Buku</th>
+                        <th class="py-3.5 px-5 text-center whitespace-nowrap min-w-[140px]">Aksi</th>
+                    </tr>
+                </thead>
                 <tbody class="text-[#35094D]">
-    @forelse ($Bukus as $buku)
-        <tr class="border-b border-gray-200">
-            <td class="py-4 flex justify-center">
-                <img class="w-10"
-                    src="{{ $buku->cover_buku ? asset('storage/' . $buku->cover_buku) : asset('icons/no-image.jpg') }}"
-                    alt="{{ $buku->judul_buku ?? 'Cover buku' }}">
-            </td>
-            <td class="py-4 text-center">{{ $buku->kode_buku ?? 'N/A' }}</td>
-            <td class="py-4 text-center">{{ $buku->judul_buku ?? 'N/A' }}</td>
-            <td class="py-4 text-center">{{ $buku->penulis ?? 'N/A' }}</td>
-            
-            {{-- Tambahkan Pemanggilan Data Kategori dan Penerbit Di Sini --}}
-            <td class="py-4 text-center">{{ $buku->kategori ?? '-' }}</td>
-            <td class="py-4 text-center">
-                @if($buku->rak)
-                    <span class="bg-[#35094D]/10 text-[#35094D] font-bold px-3 py-1 rounded-full text-sm">
-                        {{ $buku->rak }}
-                    </span>
-                @else
-                    <span class="text-gray-300">—</span>
-                @endif
-            </td>
-            <td class="py-4 text-center">{{ $buku->penerbit ?? '-' }}</td>
-            
-            <td class="py-4 text-center">{{ $buku->tahun_terbit ?? 'N/A' }}</td>
-            <td class="py-4 text-center">
-                @if ($buku->stok_buku === 0)
-                    <span class="bg-red-200 text-red-500 px-6 py-2 rounded-full">
-                        {{ $buku->stok_buku ?? 'N/A' }}
-                    </span>
-                @elseif ($buku->stok_buku <= 4)
-                    <span class="bg-yellow-100 text-yellow-500 px-6 py-2 rounded-full">
-                        {{ $buku->stok_buku ?? 'N/A' }}
-                    </span>
-                @else
-                    <span class="bg-[#16C09861] text-[#008767] px-6 py-2 rounded-full">
-                        {{ $buku->stok_buku ?? 'N/A' }}
-                    </span>
-                @endif
-            </td>
-            {{-- Aksi --}}
-            <td class="py-4 text-center">
-                <button onclick="window.location='/kelola-buku/{{ $buku->id }}'"
-                    class="btn_open_modal_kembalikan bg-[#F99D2282] cursor-pointer text-white px-6 py-2 rounded-full">
-                    Edit
-                </button>
-                <button 
-                    class="btn_open_delete_buku bg-[#FFC5C5] cursor-pointer text-white px-6 py-2 rounded-full" data-buku-id="{{ $buku->id }}">
-                    Hapus
-                </button>
-            </td>
-        </tr>
-    @empty
-        <tr>
-            <td colspan="9" class="text-center py-4 text-gray-500">Tidak ada buku yang ditemukan.
-            </td>
-        </tr>
-    @endforelse
-</tbody>
+                    @forelse ($Bukus as $buku)
+                        <tr class="border-b border-gray-200">
+                            <td class="py-4 px-4 flex justify-center">
+                                @if($buku->cover_buku)
+                                    <img class="w-10 h-14 object-cover rounded-lg shadow-sm border border-slate-700"
+                                        src="{{ asset('storage/' . $buku->cover_buku) }}"
+                                        alt="{{ $buku->judul_buku ?? 'Cover buku' }}">
+                                @else
+                                    <div class="w-10 h-14 rounded-lg bg-slate-800 border border-slate-700/80 flex items-center justify-center text-slate-500 shadow-sm">
+                                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                        </svg>
+                                    </div>
+                                @endif
+                            </td>
+                            <td class="py-4 px-4 text-center whitespace-nowrap">{{ $buku->kode_buku ?? 'N/A' }}</td>
+                            <td class="py-4 px-5 text-center font-medium">{{ $buku->judul_buku ?? 'N/A' }}</td>
+                            <td class="py-4 px-4 text-center">{{ $buku->penulis ?? 'N/A' }}</td>
+                            <td class="py-4 px-4 text-center">{{ $buku->kategori ?? '-' }}</td>
+                            <td class="py-4 px-4 text-center">
+                                @if($buku->rak)
+                                    <span class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/25 font-bold px-3 py-1 rounded-full text-xs">
+                                        {{ $buku->rak }}
+                                    </span>
+                                @else
+                                    <span class="text-slate-500">—</span>
+                                @endif
+                            </td>
+                            <td class="py-4 px-4 text-center">{{ $buku->penerbit ?? '-' }}</td>
+                            <td class="py-4 px-6 text-center whitespace-nowrap">{{ $buku->tahun_terbit ?? 'N/A' }}</td>
+                            <td class="py-4 px-6 text-center whitespace-nowrap">
+                                @if ($buku->stok_buku === 0)
+                                    <span class="bg-rose-500/15 text-rose-400 border border-rose-500/30 px-3.5 py-1 rounded-full font-bold text-xs">
+                                        {{ $buku->stok_buku ?? 0 }}
+                                    </span>
+                                @elseif ($buku->stok_buku <= 4)
+                                    <span class="bg-amber-500/15 text-amber-300 border border-amber-500/30 px-3.5 py-1 rounded-full font-bold text-xs">
+                                        {{ $buku->stok_buku ?? 'N/A' }}
+                                    </span>
+                                @else
+                                    <span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 px-3.5 py-1 rounded-full font-bold text-xs">
+                                        {{ $buku->stok_buku ?? 'N/A' }}
+                                    </span>
+                                @endif
+                            </td>
+                            {{-- Aksi --}}
+                            <td class="py-4 px-5 text-center whitespace-nowrap">
+                                <div class="flex items-center justify-center gap-2">
+                                    <button onclick="window.location='/kelola-buku/{{ $buku->id }}'"
+                                        class="btn_open_modal_kembalikan inline-flex items-center gap-1 bg-amber-500/20 text-amber-400 border border-amber-500/40 hover:bg-amber-500/30 px-3.5 py-1.5 rounded-xl text-xs font-semibold cursor-pointer transition-all">
+                                        Edit
+                                    </button>
+                                    <button 
+                                        class="btn_open_delete_buku inline-flex items-center gap-1 bg-rose-500/20 text-rose-400 border border-rose-500/40 hover:bg-rose-500/30 px-3.5 py-1.5 rounded-xl text-xs font-semibold cursor-pointer transition-all" data-buku-id="{{ $buku->id }}">
+                                        Hapus
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="10" class="text-center py-8 text-gray-500 italic">Tidak ada buku yang ditemukan.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
             </table>
             <div class="mt-6">
                 {{ $Bukus->links() }}

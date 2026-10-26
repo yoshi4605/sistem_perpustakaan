@@ -81,10 +81,27 @@ class PetugasController extends Controller
     // Dashboard Petugas
     public function Dashboard_petugas()
     {
+        $pengajuanCount = Peminjaman::where('status', 'menunggu')->count();
+        $pengembalianCount = Pengembalian::where('status', 'dikembalikan')->count();
+        $sedangDipinjamCount = Peminjaman::where('status', 'dipinjam')->count();
+        $tamuHariIni = \App\Models\BukuTamu::whereDate('created_at', today())->count();
+        $terlambatCount = Peminjaman::where('status', 'dipinjam')
+            ->whereNotNull('tanggal_jatuh_tempo')
+            ->where('tanggal_jatuh_tempo', '<', now())
+            ->count();
+        $pengajuanTerbaru = Peminjaman::with(['buku', 'anggota'])
+            ->where('status', 'menunggu')
+            ->latest()
+            ->limit(5)
+            ->get();
+
         return view('petugas.dashboard', [
-            "Pengajuan" => $this->PengajuanBukuSaatIni(),
-            "Pengembalian" => $this->PengembalianBuku(),
-            "Pengajuan_terbaru" => $this->PengajuanTerbaru(),
+            "Pengajuan" => $pengajuanCount,
+            "Pengembalian" => $pengembalianCount,
+            "SedangDipinjam" => $sedangDipinjamCount,
+            "TamuHariIni" => $tamuHariIni,
+            "Terlambat" => $terlambatCount,
+            "Pengajuan_terbaru" => $pengajuanTerbaru,
             "Presentase" => $this->calculatePresentase(),
         ]);
     }
@@ -118,7 +135,7 @@ class PetugasController extends Controller
     public function kelolaMeja()
     {
         // Ambil semua meja, group per kode_meja
-        $mejas = Meja::orderBy('kode_meja')->orderBy('nomor_bangku')->get()
+        $mejas = Meja::with('user.Anggota')->orderBy('kode_meja')->orderBy('nomor_bangku')->get()
             ->groupBy('kode_meja');
 
         return view('petugas.kelola-meja', compact('mejas'));
@@ -130,6 +147,7 @@ class PetugasController extends Controller
 
         $meja->update([
             'status'              => $request->status,
+            'user_id'             => $request->status === 'kosong' ? null : $meja->user_id,
             'terakhir_diperbarui' => now(),
             'petugas_id'          => Auth::id(),
         ]);
