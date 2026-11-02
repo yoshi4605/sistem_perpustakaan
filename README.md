@@ -47,52 +47,52 @@ Sebelum menjalankan aplikasi, pastikan komputer/laptop telah terinstal:
 
 Ikuti langkah-langkah berikut untuk menginstal project di komputer lokal:
 
-### 1. Clone atau Ekstrak Project
-Tempatkan project di direktori web server Anda (contoh untuk Laragon: `C:\laragon\www\Mylibrary`).
-
-### 2. Buka Terminal di Folder Project
+### 1. Clone Project dari GitHub
+Buka terminal dan arahkan ke direktori web server Anda (contoh: di Laragon `C:\laragon\www`):
 ```bash
-cd C:\laragon\www\Mylibrary
+cd C:\laragon\www
+git clone https://github.com/yoshi4605/sistem_perpustakaan.git Mylibrary
+cd Mylibrary
 ```
 
-### 3. Salin File Konfigurasi Environment (`.env`)
+### 2. Salin File Konfigurasi Environment (`.env`)
 Jika belum memiliki file `.env`, salin dari `.env.example`:
 ```bash
 cp .env.example .env
 ```
-Pastikan pengaturan koneksi database di file `.env` sudah sesuai dengan database lokal Anda:
+Sesuaikan pengaturan koneksi database di file `.env` dengan nama database lokal yang Anda buat:
 ```env
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE="nama database"
+DB_DATABASE=nama_database_anda
 DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### 4. Install Dependensi Backend (PHP / Composer)
+### 3. Install Dependensi Backend (PHP / Composer)
 ```bash
 composer install
 ```
 
-### 5. Generate Application Key
+### 4. Generate Application Key
 ```bash
 php artisan key:generate
 ```
 
-### 6. Jalankan Migrasi Database & Seeder
-Buat database baru bernama `perpusku` di MySQL (via HeidiSQL / phpMyAdmin), lalu jalankan:
+### 5. Jalankan Migrasi Database & Seeder
+Buat database baru di MySQL (via HeidiSQL / phpMyAdmin / DBeaver) sesuai dengan nama yang Anda masukkan di `DB_DATABASE`, lalu jalankan:
 ```bash
 php artisan migrate --seed
 ```
 *(Perintah ini akan membuat seluruh tabel sistem dan mengisi akun default).*
 
-### 7. Buat Symbolic Link Storage (Untuk Upload Cover, PDF & Foto)
+### 6. Buat Symbolic Link Storage (Untuk Upload Cover, PDF & Foto)
 ```bash
 php artisan storage:link
 ```
 
-### 8. Install & Build Asset Frontend (Tailwind CSS / Vite)
+### 7. Install & Build Asset Frontend (Tailwind CSS / Vite)
 ```bash
 npm install
 npm run build
@@ -100,7 +100,7 @@ npm run build
 npm run dev
 ```
 
-### 9. Jalankan Server Aplikasi
+### 8. Jalankan Server Aplikasi
 Jika menggunakan Laragon, aplikasi dapat langsung diakses di browser melalui:
 ```text
 http://mylibrary.test  atau  http://127.0.0.1:8000
@@ -227,7 +227,7 @@ Fitur ini biasanya diakses pada komputer/tablet kiosk yang diletakkan di pintu m
   php artisan storage:link
   ```
 - **Error Database Connection / Table Not Found:**
-  Pastikan service MySQL di Laragon/XAMPP dalam keadaan *Running*, nama database di file `.env` bernama `perpusku`, lalu jalankan kembali:
+  Pastikan service MySQL di Laragon/XAMPP dalam keadaan *Running*, nama database di file `.env` sesuai dengan database yang dibuat di MySQL, lalu jalankan kembali:
   ```bash
   php artisan migrate --seed
   ```
