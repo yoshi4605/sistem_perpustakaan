@@ -65,7 +65,7 @@ Pastikan pengaturan koneksi database di file `.env` sudah sesuai dengan database
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=perpusku
+DB_DATABASE="nama database"
 DB_USERNAME=root
 DB_PASSWORD=
 ```
