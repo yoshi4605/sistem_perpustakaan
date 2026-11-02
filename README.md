@@ -247,6 +247,6 @@ Fitur ini biasanya diakses pada komputer/tablet kiosk yang diletakkan di pintu m
 
 ## 👨‍💻 Kontributor & Lisensi
 
-- **Pengembang:**Yosep, Tanti, Desty, Fadli
+- **Pengembang:** Yosep, Tanti, Desty, Fadli
 - **Framework:** Laravel 11 (PHP 8.2+)
 - **Lisensi:** Open-source software berlisensi [MIT License](https://opensource.org/licenses/MIT).
